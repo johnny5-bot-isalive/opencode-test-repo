@@ -18,11 +18,12 @@ build/
 *.so
 *.dylib
 
-# IDE
+# IDE / editor backups
 .vscode/
 .idea/
 *.swp
 *.swo
+*.bak
 
 # OS
 .DS_Store

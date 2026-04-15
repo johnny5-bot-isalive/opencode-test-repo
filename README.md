@@ -46,6 +46,7 @@ make ci
 ## Notes
 
 - This repo is the reusable starter, not the eventual application repo.
+- Review fallback: when the OpenClaw `diffs` tool is unavailable in a worker session, use `git diff --stat`, `git diff --unified`, and ordinary file reads as the documented review path.
 - Once a real stack is chosen, replace the placeholder `dev`, `build`, and `typecheck` steps with stack-specific commands.
 
 ## License
