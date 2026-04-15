@@ -6,14 +6,16 @@ on:
   pull_request:
 
 jobs:
-  lint:
+  env-and-lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Check environment template coverage
+        run: bash scripts/check-env.sh
       - name: Run shellcheck
         run: |
           if command -v shellcheck &>/dev/null; then
-            shellcheck scripts/*.sh 2>&1 || true
+            shellcheck scripts/*.sh
           else
             echo "shellcheck not installed, skipping"
           fi
@@ -38,10 +40,15 @@ jobs:
           echo "Python: $(python3 --version 2>/dev/null || echo 'not installed')"
           echo "Shell: $SHELL"
       - name: Run project tests
+        shell: bash
         run: |
-          for f in scripts/test-*.sh; do
-            [ -x "$f" ] && bash "$f" && echo "PASS: $f" || echo "FAIL: $f"
-          done
-          if [ ! -f scripts/test-*.sh ]; then
+          shopt -s nullglob
+          files=(scripts/test-*.sh)
+          if (( ${#files[@]} == 0 )); then
             echo "No test scripts found in scripts/"
+            exit 0
           fi
+          for f in "${files[@]}"; do
+            bash "$f"
+            echo "PASS: $f"
+          done

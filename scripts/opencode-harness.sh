@@ -2,7 +2,7 @@
 # opencode-harness.sh — scaffold a new OpenCode-managed repo in the repo home
 set -euo pipefail
 
-REPO_HOME="${OPENCODE_REPO_HOME:-/home/jaret/repos/opencode-repos}"
+REPO_HOME="${OPENCODE_REPO_HOME:-/home/jaret/repos}"
 TEMPLATE_REPO="opencode-test-repo"
 
 usage() {
