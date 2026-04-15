@@ -2,53 +2,13 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [master, main]
   pull_request:
 
 jobs:
-  env-and-lint:
+  baseline:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check environment template coverage
-        run: bash scripts/check-env.sh
-      - name: Run shellcheck
-        run: |
-          if command -v shellcheck &>/dev/null; then
-            shellcheck scripts/*.sh
-          else
-            echo "shellcheck not installed, skipping"
-          fi
-      - name: Run hadolint
-        if: false  # enable when Dockerfile added
-        run: echo "hadolint step placeholder"
-      - name: Lint-markdown
-        run: |
-          if command -v mdl &>/dev/null; then
-            mdl .
-          else
-            echo "mdl not installed, skipping markdown lint"
-          fi
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Test environment
-        run: |
-          echo "Node: $(node --version 2>/dev/null || echo 'not installed')"
-          echo "Python: $(python3 --version 2>/dev/null || echo 'not installed')"
-          echo "Shell: $SHELL"
-      - name: Run project tests
-        shell: bash
-        run: |
-          shopt -s nullglob
-          files=(scripts/test-*.sh)
-          if (( ${#files[@]} == 0 )); then
-            echo "No test scripts found in scripts/"
-            exit 0
-          fi
-          for f in "${files[@]}"; do
-            bash "$f"
-            echo "PASS: $f"
-          done
+      - name: Run baseline checks
+        run: make ci

@@ -26,8 +26,10 @@ fi
 cp -r "$REPO_HOME/$TEMPLATE_REPO" "$new_path"
 cd "$new_path"
 
-# Reset git
+# Reset git and strip local-only files copied from the template workspace
 rm -rf .git
+rm -f .env
+
 git init
 git add -A
 git commit -m "Initial commit from $TEMPLATE_REPO template"

@@ -1,6 +1,6 @@
 # opencode-test-repo
 
-A production-ready baseline repo for OpenCode-driven projects.
+A reusable baseline/template repo for future projects created under `/home/jaret/repos`, whether they start in OpenCode or another IDE.
 
 ## Quick Start
 
@@ -9,30 +9,45 @@ A production-ready baseline repo for OpenCode-driven projects.
 cp .env.example .env
 # Edit .env with your settings
 
-# Check environment
+# Validate the baseline locally
 make env-check
-
-# Lint (when added)
 make lint
-
-# Test (when added)
 make test
-
-# Full CI run
 make ci
 ```
 
-## What's Included
+## Available commands
 
-- `.editorconfig` — consistent formatting across editors/IDEs
-- `.gitignore` — common excludes for Node, Python, macOS, etc.
-- `.env.example` — template for required environment variables
-- `LICENSE` — MIT license (update copyright as needed)
-- `Makefile` — reproducible `env-check`, `lint`, `test`, `ci` targets
-- `scripts/check-env.sh` — environment validation script
-- `.github/workflows/ci.yml` — GitHub Actions CI pipeline
-- `opencode-harness.sh` — OpenCode default harness targeting `/home/jaret/repos`
+- `make setup` prints optional local tooling you can install for richer checks
+- `make env-check` validates required environment variables
+- `make format` formats files when `prettier` is installed locally
+- `make format-check` checks formatting when `prettier` is installed locally
+- `make lint` runs `shellcheck` and `markdownlint` when available
+- `make test` runs the template smoke test
+- `make typecheck` is a placeholder until a real stack is chosen
+- `make build` is a placeholder until a real stack is chosen
+- `make dev` is a placeholder until a real stack is chosen
+- `make ci` runs the current local CI-equivalent chain
+
+## What's included
+
+- `.editorconfig` for editor-level formatting consistency
+- `.gitignore` with common exclusions for Node, Python, IDE, OS, temp, and coverage files
+- `.env.example` and `.env` starter files for environment setup
+- `LICENSE` with an MIT baseline
+- `.prettierrc.json` and `.prettierignore` for formatting defaults
+- `.markdownlint.json` for Markdown linting defaults
+- `Makefile` with reproducible developer commands
+- `scripts/check-env.sh` for environment validation
+- `scripts/test-template.sh` for baseline smoke testing
+- `scripts/opencode-harness.sh` to copy this repo into a new repo under `/home/jaret/repos`
+- `.github/workflows/ci.yml` for GitHub Actions CI
+
+## Notes
+
+- This repo is the reusable starter, not the eventual application repo.
+- Once a real stack is chosen, replace the placeholder `dev`, `build`, and `typecheck` steps with stack-specific commands.
 
 ## License
 
-MIT — see [LICENSE](LICENSE)
+MIT, see [LICENSE](LICENSE).
